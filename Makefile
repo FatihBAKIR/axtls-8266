@@ -28,7 +28,7 @@ OBJ_FILES := \
 	ssl/tls1_clnt.o \
 	ssl/tls1_svr.o \
 	ssl/x509.o \
-	crypto/crypto_misc.o \
+	crypto/crypto_misc.o
 
 
 CPPFLAGS += -I$(XTENSA_LIBS)/include \
@@ -42,7 +42,7 @@ LDFLAGS  += 	-L$(XTENSA_LIBS)/lib \
 
 CFLAGS+=-std=c99 -DESP8266
 
-CFLAGS += -Wall -Os -g -O2 -Wpointer-arith -Wl,-EL -nostdlib -mlongcalls -mno-text-section-literals  -D__ets__ -DICACHE_FLASH
+CFLAGS += -ffreestanding -Wall -Os -g -O2 -Wpointer-arith -Wl,-EL -nostdlib -mlongcalls -mno-text-section-literals  -D__ets__ -DICACHE_FLASH -DLWIP_RAW -DESP8266
 
 CFLAGS += -ffunction-sections -fdata-sections
 

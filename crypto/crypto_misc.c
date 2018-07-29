@@ -34,8 +34,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <stdarg.h>
-#include <stdio.h>
+
 #include "os_port.h"
 #include "crypto_misc.h"
 #ifdef CONFIG_WIN32_USE_CRYPTO_LIB
@@ -60,6 +59,9 @@ static HCRYPTPROV gCryptProv;
 #define ENTROPY_COUNTER2 rand()
 static uint8_t entropy_pool[ENTROPY_POOL_SIZE];
 #endif
+
+#undef printf
+#define printf(...)
 
 #ifndef CONFIG_SSL_SKELETON_MODE
 /**
@@ -283,7 +285,7 @@ static void print_hex(uint8_t hex)
 EXP_FUNC void STDCALL print_blob(const char *format,
         const uint8_t *data, int size, ...)
 {
-    int i;
+    /*int i;
     char tmp[80];
     va_list(ap);
 
@@ -297,7 +299,7 @@ EXP_FUNC void STDCALL print_blob(const char *format,
     }
 
     va_end(ap);
-    TTY_FLUSH();
+    TTY_FLUSH();*/
 }
 #elif defined(WIN32)
 /* VC6.0 doesn't handle variadic macros */

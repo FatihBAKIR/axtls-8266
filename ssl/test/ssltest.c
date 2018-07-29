@@ -35,7 +35,7 @@
  * This is test code - I make no apologies for the quality!
  */
 
-#include <stdio.h>
+
 #include <stdlib.h>
 #include <signal.h>
 #include <string.h>

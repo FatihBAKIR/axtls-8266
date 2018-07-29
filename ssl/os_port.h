@@ -43,7 +43,7 @@ extern "C" {
 
 #include "os_int.h"
 #include "config.h"
-#include <stdio.h>
+
 
 #ifdef WIN32
 #define STDCALL                 __stdcall
@@ -62,6 +62,7 @@ extern "C" {
 
 #include "util/time.h"
 #include <errno.h>
+
 #define alloca(size) __builtin_alloca(size)
 #define TTY_FLUSH()
 #ifdef putc
@@ -150,8 +151,8 @@ extern int ets_printf(const char *format, ...)  __attribute__ ((format (printf, 
 extern int ets_putc(int);
 
 // The network interface in WiFiClientSecure
-extern int ax_port_read(int fd, uint8_t* buffer, size_t count);
-extern int ax_port_write(int fd, uint8_t* buffer, size_t count);
+//extern int ax_port_read(int fd, uint8_t* buffer, size_t count);
+//extern int ax_port_write(int fd, uint8_t* buffer, size_t count);
 
 // TODO: Why is this not being imported from <string.h>?
 extern char *strdup(const char *orig);
@@ -246,16 +247,6 @@ EXP_FUNC int STDCALL getdomainname(char *buf, int buf_size);
 #endif
 
 #endif  /* Not Win32 */
-
-/* some functions to mutate the way these work */
-inline uint32_t htonl(uint32_t n){
-  return ((n & 0xff) << 24) |
-    ((n & 0xff00) << 8) |
-    ((n & 0xff0000UL) >> 8) |
-    ((n & 0xff000000UL) >> 24);
-}
-
-#define ntohl htonl
 
 EXP_FUNC int STDCALL ax_open(const char *pathname, int flags); 
 

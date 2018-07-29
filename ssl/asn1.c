@@ -32,7 +32,7 @@
  * Some primitive asn methods for extraction ASN.1 data.
  */
 
-#include <stdio.h>
+
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>

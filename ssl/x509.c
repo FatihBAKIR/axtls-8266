@@ -34,13 +34,16 @@
  * Certificate processing.
  */
 
-#include <stdio.h>
+
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <sys/time.h>
 #include "os_port.h"
 #include "crypto_misc.h"
+
+#undef printf
+#define printf(...)
 
 #ifdef CONFIG_SSL_CERT_VERIFICATION
 static int x509_v3_subject_alt_name(const uint8_t *cert, int offset, 

@@ -63,7 +63,6 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <string.h>
-#include <stdio.h>
 #include <time.h>
 #include "os_port.h"
 #include "bigint.h"
