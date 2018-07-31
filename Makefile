@@ -80,6 +80,9 @@ $(AXTLS_AR): $(OBJ_FILES)
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
 
+install: $(AXTLS_AR)
+	cp $(AXTLS_AR) $(PREFIX)/xtensa-lx106-elf/sysroot/usr/lib/
+
 clean:
 	rm -rf $(OBJ_FILES) $(AXTLS_AR)
 
