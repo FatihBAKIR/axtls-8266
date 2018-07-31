@@ -449,7 +449,7 @@ static int send_client_key_xchg(SSL *ssl)
  */
 static int process_cert_req(SSL *ssl)
 {
-    uint8_t *buf = &ssl->bm_data[ssl->dc->bm_proc_index];
+    uint8_t *buf = &ssl->bm_data[ssl->dc->bm_proc_index > 0 ? ssl->dc->bm_proc_index + 6 : ssl->dc->bm_proc_index];
     int ret = SSL_OK;
     int cert_req_size = (buf[2]<<8) + buf[3];
     int offset = 4;

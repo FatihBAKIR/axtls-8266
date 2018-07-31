@@ -1400,7 +1400,9 @@ int basic_read(SSL *ssl, uint8_t **in_data)
 
     /* haven't quite got what we want, so try again later */
     if (ssl->got_bytes < ssl->need_bytes)
+    {
         return SSL_OK;
+    }
 
     read_len = ssl->got_bytes;
     ssl->got_bytes = 0;
@@ -2122,8 +2124,7 @@ EXP_FUNC int STDCALL ssl_verify_cert(const SSL *ssl)
 int process_certificate(SSL *ssl, X509_CTX **x509_ctx)
 {
     int ret = SSL_OK;
-    uint8_t *buf = &ssl->bm_data[ssl->dc->bm_proc_index];
-    int pkt_size = ssl->bm_index;
+    uint8_t *buf = &ssl->bm_data[ssl->dc->bm_proc_index > 0 ? ssl->dc->bm_proc_index + 6 : ssl->dc->bm_proc_index];    int pkt_size = ssl->bm_index;
     int cert_size, offset = 5, offset_start;
     int total_cert_len = (buf[offset]<<8) + buf[offset+1];
     int is_client = IS_SET_SSL_FLAG(SSL_IS_CLIENT);

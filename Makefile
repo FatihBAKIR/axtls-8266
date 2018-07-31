@@ -7,6 +7,9 @@ OBJCOPY := $(TOOLCHAIN_PREFIX)objcopy
 XTENSA_LIBS ?= $(shell $(CC) -print-sysroot)
 
 TOOLCHAIN_DIR=$(shell cd $(XTENSA_LIBS)/../../; pwd)
+SDK_DIR=$(shell cd $(TOOLCHAIN_DIR)/../; pwd)
+
+$(info $(SDK_DIR))
 
 OBJ_FILES := \
 	crypto/aes.o \
@@ -39,10 +42,14 @@ CPPFLAGS += -I$(XTENSA_LIBS)/include \
 LDFLAGS  += 	-L$(XTENSA_LIBS)/lib \
 		-L$(XTENSA_LIBS)/arch/lib \
 
+CFLAGS += -I$(SDK_DIR)/esp-lwip/src/include \
+		  -I$(SDK_DIR)/sdk/include \
+		  -I$(SDK_DIR)/esp-lwip/config \
+		  -I$(SDK_DIR)/esp-lwip/espressif/include
 
-CFLAGS+=-std=c99 -DESP8266
+CFLAGS += -std=c99 -DESP8266
 
-CFLAGS += -ffreestanding -Wall -Os -g -O2 -Wpointer-arith -Wl,-EL -nostdlib -mlongcalls -mno-text-section-literals  -D__ets__ -DICACHE_FLASH -DLWIP_RAW -DESP8266
+CFLAGS += -ffreestanding -Wall -Os -g -O2 -Wpointer-arith -Wl,-EL -nostdlib -mlongcalls -mtext-section-literals  -D__ets__ -DICACHE_FLASH -DLWIP_RAW -DESP8266
 
 CFLAGS += -ffunction-sections -fdata-sections
 
@@ -68,6 +75,7 @@ $(AXTLS_AR): | $(BIN_DIR)
 
 $(AXTLS_AR): $(OBJ_FILES)
 	$(AR) cru $@ $^
+	$(OBJCOPY) --rename-section .text=.irom0.text --rename-section .literal=.irom0.literal $@ 
 
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)

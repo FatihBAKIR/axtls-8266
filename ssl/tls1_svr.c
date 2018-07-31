@@ -368,7 +368,7 @@ static int send_server_hello_done(SSL *ssl)
  */
 static int process_client_key_xchg(SSL *ssl)
 {
-    uint8_t *buf = &ssl->bm_data[ssl->dc->bm_proc_index];
+    uint8_t *buf = &ssl->bm_data[ssl->dc->bm_proc_index > 0 ? ssl->dc->bm_proc_index + 6 : ssl->dc->bm_proc_index];
     int pkt_size = ssl->bm_index;
     int premaster_size, secret_length = (buf[2] << 8) + buf[3];
     uint8_t premaster_secret[MAX_KEY_BYTE_SIZE];
@@ -457,7 +457,7 @@ static int send_certificate_request(SSL *ssl)
  */
 static int process_cert_verify(SSL *ssl)
 {
-    uint8_t *buf = &ssl->bm_data[ssl->dc->bm_proc_index];
+    uint8_t *buf = &ssl->bm_data[ssl->dc->bm_proc_index > 0 ? ssl->dc->bm_proc_index + 6 : ssl->dc->bm_proc_index];
     int pkt_size = ssl->bm_index;
     uint8_t dgst_buf[MAX_KEY_BYTE_SIZE];
     uint8_t dgst[MD5_SIZE + SHA1_SIZE];
