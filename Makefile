@@ -7,7 +7,7 @@ OBJCOPY := $(TOOLCHAIN_PREFIX)objcopy
 XTENSA_LIBS ?= $(shell $(CC) -print-sysroot)
 
 TOOLCHAIN_DIR=$(shell cd $(XTENSA_LIBS)/../../; pwd)
-SDK_DIR=$(shell cd $(TOOLCHAIN_DIR)/../; pwd)
+SDK_DIR=$(shell cd ../; pwd)
 
 $(info $(SDK_DIR))
 
